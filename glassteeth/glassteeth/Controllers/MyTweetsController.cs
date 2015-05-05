@@ -14,6 +14,8 @@ namespace glassteeth.Controllers
 {
     public class MyTweetsController : ApiController
     {
+        private TwitterAuth TwitterAuth;
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/MyTweets
