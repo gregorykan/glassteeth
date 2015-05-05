@@ -12,10 +12,11 @@ namespace glassteeth.Models
         private string pusherAppId = "117600";
         private string pusherAppKey = "45c06fa98717fe603c5a";
         private string pusherAppSecret = "62f457d7131dbb7708b4";
+        public Pusher Pusher;
 
         public PusherStream()
         {
-            var pusher = new Pusher(pusherAppId, pusherAppKey, pusherAppSecret);
+            Pusher = new Pusher(pusherAppId, pusherAppKey, pusherAppSecret);
         }
     }
 }
