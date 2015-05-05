@@ -3,26 +3,34 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using glassteeth.Models;
+using Tweetinvi;
+using Tweetinvi.Core.Extensions;
+using Tweetinvi.Core.Interfaces;
 
 namespace glassteeth.Controllers
 {
     public class MyTweetsController : ApiController
     {
-        private TwitterAuth TwitterAuth;
 
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/MyTweets
-        public IQueryable<MyTweet> GetMyTweets()
+        public IEnumerable<MyTweet> GetMyTweets(string input)
         {
-            return db.MyTweets;
+            TwitterAuth twitterAuth = new TwitterAuth();
+            ITweetParser parser = new ITweetParser();
+            var tweets = Search.SearchTweets(input);
+            return parser.ParseITweets(tweets);
         }
+
+
 
         // GET: api/MyTweets/5
         [ResponseType(typeof(MyTweet))]
