@@ -231,6 +231,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyTweetsController.cs" />
+    <Compile Include="Controllers\StreamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -248,6 +249,7 @@
     <Compile Include="Models\ITweetParser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyTweet.cs" />
+    <Compile Include="Models\PusherStream.cs" />
     <Compile Include="Models\SentimentAnalysis.cs" />
     <Compile Include="Models\TwitterAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
