@@ -7,10 +7,12 @@ namespace glassteeth.Models
 {
     public class MyTweet
     {
+        public int Id { get; set; }
         public string Body { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string Location { get; set; }
+        public string Sentiment { get; set; }
 
         public MyTweet()
         {
