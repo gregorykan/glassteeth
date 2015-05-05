@@ -16,9 +16,7 @@ namespace glassteeth
     {
         protected void Application_Start()
         {
-            Debug.WriteLine("pre db migration");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, glassteeth.Migrations.Configuration>());
-            Debug.WriteLine("post db migration");
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
