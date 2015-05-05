@@ -36,5 +36,7 @@ namespace glassteeth.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<glassteeth.Models.MyTweet> MyTweets { get; set; }
     }
 }
