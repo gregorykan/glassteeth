@@ -28,7 +28,7 @@ namespace glassteeth.Controllers
             ITweetParser parser = new ITweetParser();
             
             var searchParameters = Search.CreateTweetSearchParameter(input);
-            searchParameters.MaximumNumberOfResults= 10000;
+            searchParameters.MaximumNumberOfResults= 100;
             var tweets = Search.SearchTweets(searchParameters);
 
             return parser.ParseITweets(tweets);
