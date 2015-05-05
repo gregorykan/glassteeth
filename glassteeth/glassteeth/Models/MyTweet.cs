@@ -19,17 +19,19 @@ namespace glassteeth.Models
             
         }
 
-        public MyTweet(string body, string latitude, string longitude)
+        public MyTweet(string body, string latitude, string longitude, string sentiment)
         {
             Body = body;
             Latitude = latitude;
             Longitude = longitude;
+            Sentiment = sentiment;
         }
 
-        public MyTweet(string body, string location)
+        public MyTweet(string body, string location, string sentiment)
         {
             Body = body;
             Location = location;
+            Sentiment = sentiment;
         }
     }
 }

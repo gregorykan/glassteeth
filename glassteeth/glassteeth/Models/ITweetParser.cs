@@ -9,6 +9,13 @@ namespace glassteeth.Models
 {
     public class ITweetParser
     {
+        SentimentAnalysis SA { get; set; }
+
+        public ITweetParser()
+        {
+            SA = new SentimentAnalysis();    
+        }
+
         public IEnumerable<MyTweet> ParseITweets (IEnumerable<ITweet> tweets)
         {
             List<MyTweet> queryTweets = new List<MyTweet>();
@@ -17,12 +24,14 @@ namespace glassteeth.Models
             {
                 if (tweet.Coordinates != null)
                 {
-                    MyTweet thisTweet = new MyTweet(tweet.Text, tweet.Coordinates.Latitude.ToString(), tweet.Coordinates.Longitude.ToString());
+                    string sentiment = SA.Analyze(tweet.Text);
+                    MyTweet thisTweet = new MyTweet(tweet.Text, tweet.Coordinates.Latitude.ToString(), tweet.Coordinates.Longitude.ToString(), sentiment);
                     queryTweets.Add(thisTweet);
                 }
                 else if (tweet.Place != null)
                 {
-                    MyTweet thisTweet = new MyTweet(tweet.Text, tweet.Place.Name);
+                    string sentiment = SA.Analyze(tweet.Text);
+                    MyTweet thisTweet = new MyTweet(tweet.Text, tweet.Place.Name, sentiment);
                     queryTweets.Add(thisTweet);
                 }
             }

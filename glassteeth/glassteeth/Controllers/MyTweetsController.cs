@@ -26,7 +26,11 @@ namespace glassteeth.Controllers
         {
             TwitterAuth twitterAuth = new TwitterAuth();
             ITweetParser parser = new ITweetParser();
-            var tweets = Search.SearchTweets(input);
+            
+            var searchParameters = Search.CreateTweetSearchParameter(input);
+            searchParameters.MaximumNumberOfResults= 1000;
+            var tweets = Search.SearchTweets(searchParameters);
+
             return parser.ParseITweets(tweets);
         }
 
