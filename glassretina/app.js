@@ -11,8 +11,6 @@ $(document).ready(function ()
 	var positiveHeatMap;
 	var negativeHeatMap;
 	var geocoder = new google.maps.Geocoder();
-	var pusher = new Pusher('45c06fa98717fe603c5a');
-	var channel = pusher.subscribe('tweetStream');
 	var myLatlng;
 
 	$('.submit-button').click(function (e)
@@ -22,17 +20,25 @@ $(document).ready(function ()
 			toggleLiveSearch(input);
 		});
 
-	channel.bind('tweetEvent', function (data) 
+	function startListening (streamId)
 	{
-		// console.log("tweet with coordinates: " + data["message"]["Body"]);
-		fillMap(data["message"]["Latitude"], data["message"]["Longitude"], data["message"]["Sentiment"]);
-	});
+		console.log("started listening to stream ID " + streamId)
+		var pusher = new Pusher('45c06fa98717fe603c5a');
+		var channel = pusher.subscribe(streamId);
+		channel.bind('tweetEvent', function (data) 
+		{
+			console.log("tweet with coordinates: " + data["message"]["Body"]);
+			fillMap(data["message"]["Latitude"], data["message"]["Longitude"], data["message"]["Sentiment"]);
+			$('#tweetText').text(data["message"]["Body"]);
+		});
 
-	channel.bind('tweetEventWithPlace', function (data)
-	{
-		// console.log("tweet with location: "+ data["message"]["Body"]);
-		geocode(data["message"]["Location"], data["message"]["Sentiment"]);
-	});
+		channel.bind('tweetEventWithPlace', function (data)
+		{
+			console.log("tweet with location: "+ data["message"]["Body"]);
+			geocode(data["message"]["Location"], data["message"]["Sentiment"]);
+			$('#tweetText').text(data["message"]["Body"]);
+		});
+	}
 
 	initialize();
 
@@ -45,6 +51,7 @@ $(document).ready(function ()
 		}).done(function (data)
 		{
 			console.log(data);
+			startListening(data);
 		});
 	}
 

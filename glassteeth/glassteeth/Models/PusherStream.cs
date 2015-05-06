@@ -13,7 +13,7 @@ namespace glassteeth.Models
     public static class PusherStream
     {
         public static string Term { get; set; }
-        public static string RandomID { get; set; }
+        public static string StreamID { get; set; }
 
         public static void StartAsyncTask()
         {
@@ -36,18 +36,17 @@ namespace glassteeth.Models
                     string sentiment = SA.Analyze(arg.Tweet.Text);
                     MyTweet thisTweet = new MyTweet(arg.Tweet.Text,
                         arg.Tweet.Coordinates.Latitude.ToString(), arg.Tweet.Coordinates.Longitude.ToString(), sentiment);
-                    pusher.Trigger("tweetStream", "tweetEvent", new { message = thisTweet });
+                    pusher.Trigger(StreamID, "tweetEvent", new { message = thisTweet });
                 }
                 else if (arg.Tweet.Place != null)
                 {
                     Debug.WriteLine("tweet with location");
                     string sentiment = SA.Analyze(arg.Tweet.Text);
                     MyTweet thisTweet = new MyTweet(arg.Tweet.Text, arg.Tweet.Place.Name, sentiment);
-                    pusher.Trigger("tweetStream", "tweetEventWithPlace", new { message = thisTweet });
+                    pusher.Trigger(StreamID, "tweetEventWithPlace", new { message = thisTweet });
                 }
             };
             filteredStream.StartStreamMatchingAllConditions();
-
         }
     }
 }
