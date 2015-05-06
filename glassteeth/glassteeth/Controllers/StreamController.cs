@@ -16,11 +16,11 @@ namespace glassteeth.Controllers
         public string GetMyStream(string input)
         {
             Random random = new Random();
-            string randomID = random.Next(0, 10000).ToString();
-            PusherStream.RandomID = randomID;
+            string streamID = random.Next(0, 10000).ToString();
+            PusherStream.StreamID = streamID;
             PusherStream.Term = input;
             PusherStream.StartAsyncTask();
-            return randomID;
+            return streamID;
         }
     }
 }
