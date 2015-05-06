@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using PusherServer;
@@ -28,20 +29,21 @@ namespace glassteeth.Models
             filteredStream.AddTrack(Term);
             filteredStream.MatchingTweetReceived += (sender, arg) =>
             {
-                pusher.Trigger("tweetStream", "tweetEvent", new { message = arg.Tweet.Text });
-                //if (arg.Tweet.Coordinates != null)
-                //{
-                //    string sentiment = SA.Analyze(arg.Tweet.Text);
-                //    MyTweet thisTweet = new MyTweet(arg.Tweet.Text,
-                //        arg.Tweet.Coordinates.Latitude.ToString(), arg.Tweet.Coordinates.Longitude.ToString(), sentiment);
-                //    stream.Pusher.Trigger("tweetStream", "tweetEvent", new {message = thisTweet});
-                //}
-                //else if (arg.Tweet.Place != null)
-                //{
-                //    string sentiment = SA.Analyze(arg.Tweet.Text);
-                //    MyTweet thisTweet = new MyTweet(arg.Tweet.Text, arg.Tweet.Place.Name, sentiment);
-                //    stream.Pusher.Trigger("tweetStream", "tweetEventWithPlace", new {message = thisTweet});
-                //}
+                if (arg.Tweet.Coordinates != null)
+                {
+                    Debug.WriteLine("tweet with coordinates");
+                    string sentiment = SA.Analyze(arg.Tweet.Text);
+                    MyTweet thisTweet = new MyTweet(arg.Tweet.Text,
+                        arg.Tweet.Coordinates.Latitude.ToString(), arg.Tweet.Coordinates.Longitude.ToString(), sentiment);
+                    pusher.Trigger("tweetStream", "tweetEvent", new { message = thisTweet });
+                }
+                else if (arg.Tweet.Place != null)
+                {
+                    Debug.WriteLine("tweet with location");
+                    string sentiment = SA.Analyze(arg.Tweet.Text);
+                    MyTweet thisTweet = new MyTweet(arg.Tweet.Text, arg.Tweet.Place.Name, sentiment);
+                    pusher.Trigger("tweetStream", "tweetEventWithPlace", new { message = thisTweet });
+                }
             };
             filteredStream.StartStreamMatchingAllConditions();
 
