@@ -15,17 +15,41 @@ $(document).ready(function ()
 	var channel = pusher.subscribe('tweetStream');
 	var myLatlng;
 
+	$('.submit-button').click(function (e)
+		{
+			e.preventDefault();
+			var input = $('.myForm').find('input:text').val();
+			console.log(input);
+			toggleLiveSearch(input);
+		});
+
 	channel.bind('tweetEvent', function (data) 
 	{
+		console.log("tweet with coordinates: " + data["message"]["Body"]);
 		fillMap(data["message"]["Latitude"], data["message"]["Longitude"], data["message"]["Sentiment"]);
 	});
 
 	channel.bind('tweetEventWithPlace', function (data)
 	{
-		geocode(data["message"]["Place"], data["message"]["Sentiment"]);
+		console.log("tweet with location: "+ data["message"]["Body"]);
+		geocode(data["message"]["Location"], data["message"]["Sentiment"]);
 	});
 
 	initialize();
+
+	function toggleLiveSearch(input)
+	{
+		console.log("live search toggled for term: " + input);
+		$.ajax(
+		{
+			url:"http://localhost:49394/api/stream?input=" + input,
+			method: "GET",
+			dataType: "jsonp"
+		}).done(function(data)
+		{
+
+		});
+	}
 
 	function geocode(place, sentiment)
 	{
@@ -68,7 +92,7 @@ $(document).ready(function ()
 	{
 		var mapOptions = 
 		{
-			zoom: 3,
+			zoom: 2,
 			center: new google.maps.LatLng(37.774546, -122.433523),
 			mapTypeId: google.maps.MapTypeId.SATELLITE
 		};
@@ -77,7 +101,7 @@ $(document).ready(function ()
 
 		positiveHeatMap = new google.maps.visualization.HeatmapLayer(
 		{
-			gradient: ['rgba(255,255,255,0)', 'rgba(0,255,0,0.9)'],
+			gradient: ['rgba(229,245,224,0)', 'rgba(161,217,155,0.9)', 'rgba(49,163,84,0.9)'],
 			radius: 15,
 			opacity: 1
 		});
@@ -85,7 +109,7 @@ $(document).ready(function ()
 
 		negativeHeatMap = new google.maps.visualization.HeatmapLayer(
 		{
-			gradient: ['rgba(255,255,255,0)', 'rgba(255,0,0,0.9)'],
+			gradient: ['rgba(254,224,210,0)', 'rgba(252,146,114,0.9)', 'rgba(222,45,38,0.9)'],
 			radius: 15,
 			opacity: 1
 		});
@@ -93,7 +117,7 @@ $(document).ready(function ()
 
 		neutralHeatMap = new google.maps.visualization.HeatmapLayer(
 		{
-			gradient: ['rgba(255,255,255,0)', 'rgba(0,0,255,0.9)'],
+			gradient: ['rgba(222,235,247,0)', 'rgba(158,202,225,0.9)', 'rgba(49,130,189,0.9)'],
 			radius: 15,
 			opacity: 1
 		});
