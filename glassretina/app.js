@@ -19,19 +19,18 @@ $(document).ready(function ()
 		{
 			e.preventDefault();
 			var input = $('.myForm').find('input:text').val();
-			console.log(input);
 			toggleLiveSearch(input);
 		});
 
 	channel.bind('tweetEvent', function (data) 
 	{
-		console.log("tweet with coordinates: " + data["message"]["Body"]);
+		// console.log("tweet with coordinates: " + data["message"]["Body"]);
 		fillMap(data["message"]["Latitude"], data["message"]["Longitude"], data["message"]["Sentiment"]);
 	});
 
 	channel.bind('tweetEventWithPlace', function (data)
 	{
-		console.log("tweet with location: "+ data["message"]["Body"]);
+		// console.log("tweet with location: "+ data["message"]["Body"]);
 		geocode(data["message"]["Location"], data["message"]["Sentiment"]);
 	});
 
@@ -39,15 +38,13 @@ $(document).ready(function ()
 
 	function toggleLiveSearch(input)
 	{
-		console.log("live search toggled for term: " + input);
 		$.ajax(
 		{
 			url:"http://localhost:49394/api/stream?input=" + input,
-			method: "GET",
-			dataType: "jsonp"
-		}).done(function(data)
+			method: "GET"
+		}).done(function (data)
 		{
-
+			console.log(data);
 		});
 	}
 
@@ -62,7 +59,7 @@ $(document).ready(function ()
 			var jsonReturn = data["results"];
 			var lat = jsonReturn[0]["geometry"]["location"]["lat"];
 			var lng = jsonReturn[0]["geometry"]["location"]["lng"];
-		fillMap(lat, lng, sentiment);
+			fillMap(lat, lng, sentiment);
 		});
 	}
 

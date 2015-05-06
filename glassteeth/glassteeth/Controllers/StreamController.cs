@@ -13,10 +13,14 @@ namespace glassteeth.Controllers
 {
     public class StreamController : ApiController
     {
-        public void GetMyStream(string input)
+        public string GetMyStream(string input)
         {
+            Random random = new Random();
+            string randomID = random.Next(0, 10000).ToString();
+            PusherStream.RandomID = randomID;
             PusherStream.Term = input;
             PusherStream.StartAsyncTask();
+            return randomID;
         }
     }
 }
