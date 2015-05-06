@@ -19,7 +19,7 @@ namespace glassteeth.Controllers
     public class MyTweetsController : ApiController
     {
 
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/MyTweets
         public IEnumerable<MyTweet> GetMyTweets(string input)
@@ -35,98 +35,97 @@ namespace glassteeth.Controllers
         }
 
 
+    //    // GET: api/MyTweets/5
+    //    [ResponseType(typeof(MyTweet))]
+    //    public IHttpActionResult GetMyTweet(int id)
+    //    {
+    //        MyTweet myTweet = db.MyTweets.Find(id);
+    //        if (myTweet == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-        // GET: api/MyTweets/5
-        [ResponseType(typeof(MyTweet))]
-        public IHttpActionResult GetMyTweet(int id)
-        {
-            MyTweet myTweet = db.MyTweets.Find(id);
-            if (myTweet == null)
-            {
-                return NotFound();
-            }
+    //        return Ok(myTweet);
+    //    }
 
-            return Ok(myTweet);
-        }
+    //    // PUT: api/MyTweets/5
+    //    [ResponseType(typeof(void))]
+    //    public IHttpActionResult PutMyTweet(int id, MyTweet myTweet)
+    //    {
+    //        if (!ModelState.IsValid)
+    //        {
+    //            return BadRequest(ModelState);
+    //        }
 
-        // PUT: api/MyTweets/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutMyTweet(int id, MyTweet myTweet)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+    //        if (id != myTweet.Id)
+    //        {
+    //            return BadRequest();
+    //        }
 
-            if (id != myTweet.Id)
-            {
-                return BadRequest();
-            }
+    //        db.Entry(myTweet).State = EntityState.Modified;
 
-            db.Entry(myTweet).State = EntityState.Modified;
+    //        try
+    //        {
+    //            db.SaveChanges();
+    //        }
+    //        catch (DbUpdateConcurrencyException)
+    //        {
+    //            if (!MyTweetExists(id))
+    //            {
+    //                return NotFound();
+    //            }
+    //            else
+    //            {
+    //                throw;
+    //            }
+    //        }
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MyTweetExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+    //        return StatusCode(HttpStatusCode.NoContent);
+    //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+    //    // POST: api/MyTweets
+    //    [ResponseType(typeof(MyTweet))]
+    //    public IHttpActionResult PostMyTweet(MyTweet myTweet)
+    //    {
+    //        if (!ModelState.IsValid)
+    //        {
+    //            return BadRequest(ModelState);
+    //        }
 
-        // POST: api/MyTweets
-        [ResponseType(typeof(MyTweet))]
-        public IHttpActionResult PostMyTweet(MyTweet myTweet)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+    //        db.MyTweets.Add(myTweet);
+    //        db.SaveChanges();
 
-            db.MyTweets.Add(myTweet);
-            db.SaveChanges();
+    //        return CreatedAtRoute("DefaultApi", new { id = myTweet.Id }, myTweet);
+    //    }
 
-            return CreatedAtRoute("DefaultApi", new { id = myTweet.Id }, myTweet);
-        }
+    //    // DELETE: api/MyTweets/5
+    //    [ResponseType(typeof(MyTweet))]
+    //    public IHttpActionResult DeleteMyTweet(int id)
+    //    {
+    //        MyTweet myTweet = db.MyTweets.Find(id);
+    //        if (myTweet == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-        // DELETE: api/MyTweets/5
-        [ResponseType(typeof(MyTweet))]
-        public IHttpActionResult DeleteMyTweet(int id)
-        {
-            MyTweet myTweet = db.MyTweets.Find(id);
-            if (myTweet == null)
-            {
-                return NotFound();
-            }
+    //        db.MyTweets.Remove(myTweet);
+    //        db.SaveChanges();
 
-            db.MyTweets.Remove(myTweet);
-            db.SaveChanges();
+    //        return Ok(myTweet);
+    //    }
 
-            return Ok(myTweet);
-        }
+    //    protected override void Dispose(bool disposing)
+    //    {
+    //        if (disposing)
+    //        {
+    //            db.Dispose();
+    //        }
+    //        base.Dispose(disposing);
+    //    }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool MyTweetExists(int id)
-        {
-            return db.MyTweets.Count(e => e.Id == id) > 0;
-        }
+    //    private bool MyTweetExists(int id)
+    //    {
+    //        return db.MyTweets.Count(e => e.Id == id) > 0;
+    //    }
     }
 }
