@@ -13,6 +13,7 @@ namespace glassteeth.Models
     public static class PusherStream
     {
         public static string Term { get; set; }
+        public static string RandomID { get; set; }
 
         public static void StartAsyncTask()
         {
