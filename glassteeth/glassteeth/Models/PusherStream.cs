@@ -46,7 +46,10 @@ namespace glassteeth.Models
                     pusher.Trigger(StreamID, "tweetEventWithPlace", new { message = thisTweet });
                 }
             };
-            filteredStream.StartStreamMatchingAllConditions();
+            while (true)
+            {
+                filteredStream.StartStreamMatchingAllConditions();               
+            }
         }
     }
 }
