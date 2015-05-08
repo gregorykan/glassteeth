@@ -10,10 +10,10 @@ html, body
 
 #map-canvas 
 {
-	height: 660px;
-	width: 800px;
+	height: 560px;
+	width: 700px;
 	display: block;
-	margin: 0 auto;
+	margin: 10px auto;
 }
 
 #search
@@ -32,7 +32,9 @@ html, body
 
 #thisTweet
 {
-	margin: 0 auto;
+	margin: 10px auto;
 	display: block;
 	text-align: center;
+	width: 700px;
+	border: 1px solid #05C5FF;
 }

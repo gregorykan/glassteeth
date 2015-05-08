@@ -25,9 +25,6 @@ glassLungApp.controller('formCtrl', ['$scope', '$http', '$pusher', function($sco
 		}).success(function(data) 
 		{
 			$scope.startListening(data);
-		}).error(function ()
-		{
-			alert("error!");
 		});
 	}
 
@@ -62,8 +59,6 @@ glassLungApp.controller('formCtrl', ['$scope', '$http', '$pusher', function($sco
 			var lat = data["results"][0]["geometry"]["location"]["lat"];
 			var lng = data["results"][0]["geometry"]["location"]["lng"];
 			$scope.fillMap(lat, lng, sentiment);
-		}).error(function(){
-			alert("error in geocode()");
 		});
 	}
 
